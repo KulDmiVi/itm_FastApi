@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
 
-router = APIRouter(prefix='/', tags=['Описание документо'])
+router = APIRouter( tags=['Докуметы'])
 
 
 @router.get("/document_text/{document_id}", summary="Получить один документ")

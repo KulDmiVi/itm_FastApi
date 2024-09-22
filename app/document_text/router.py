@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 
-router = APIRouter(prefix='/', tags=['Документы'])
+router = APIRouter( tags=['Документы'])
 
 
 @router.get("/document/{document_id}", summary="Получить один документ")
