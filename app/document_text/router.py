@@ -1,31 +1,19 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+from app.document_text.analyzer import img_to_text
+from app.document_text.dao import DocumentsTextDAO
+from app.documents.dao import DocumentsDAO
+from app.document_text.models import DocumentsText
 
 
-router = APIRouter( tags=['Документы'])
+router = APIRouter(tags=['Документы'])
 
 
-@router.get("/document/{document_id}", summary="Получить один документ")
-async def get_document(document_id:int) -> str:
-    # rez = await StudentDAO.find_one_or_none(**request_body.to_dict())
-    # if rez is None:
-    #     return {'message': f'Студент с указанными вами параметрами не найден!'}
-    return "Документ"
-#
-#
-# @router.post("/doc_upload/")
-# async def add_student(student: SStudentAdd) -> dict:
-#     check = await StudentDAO.add_student(**student.dict())
-#     if check:
-#         return {"message": "Студент успешно добавлен!", "student": student}
-#     else:
-#         return {"message": "Ошибка при добавлении студента!"}
-#
-#
-# @router.delete("/doc_delete/{document_id}")
-# async def dell_document_by_id(document_id: int) -> dict:
-#     pass
-#     # check = await StudentDAO.delete_student_by_id(student_id=student_id)
-#     # if check:
-#     #     return {"message": f"Студент с ID {student_id} удален!"}
-#     # else:
-#     #     return {"message": "Ошибка при удалении студента!"}
+@router.post("/doc_analyse/{document_id}", summary="Добавить описание")
+async def doc_analyse(document_id: int) -> dict:
+    document = await DocumentsDAO.get_document_by_id(document_id)
+    text = img_to_text(document.path)
+    new_doc_text = DocumentsText()
+    new_doc_text.id_doc = document_id
+    new_doc_text.text = text
+    text_id = await DocumentsTextDAO.add_document_text(new_doc_text)
+    return {"text": text, 'id': text_id}
