@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
+from app.document_text.models import DocumentsText
 
 from app.database import Base
 
@@ -8,7 +9,7 @@ class Documents(Base):
 
     __tablename__ = 'documents'
     id = Column(Integer(), primary_key=True)
-    path = Column(String(50), nullable=False)
+    path = Column(String(255), nullable=False)
     date = Column(DateTime, default=func.now())
     docText = relationship("DocumentsText", backref="documentstext")
 
