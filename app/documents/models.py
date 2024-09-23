@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
-from app.document_text.models import DocumentsText
+
 
 from app.database import Base
 

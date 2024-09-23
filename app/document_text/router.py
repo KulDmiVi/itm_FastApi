@@ -1,8 +1,6 @@
 from fastapi import APIRouter
-from celery_worker.celeryapp import img_to_text
+from app.celery_worker.app import img_to_text
 from app.documents.dao import DocumentsDAO
-
-
 
 router = APIRouter(tags=['Документы'])
 

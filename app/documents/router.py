@@ -10,7 +10,7 @@ router = APIRouter( tags=['Докуметы'])
 @router.post("/doc_upload/", summary="Загрузка документов")
 async def add_document(file: UploadFile) -> dict:
     try:
-        file_path = f"app\\static\\{file.filename}"
+        file_path = f"{file.filename}"
         with open(file_path, "wb") as f:
             f.write(file.file.read())
         new_document = Documents()

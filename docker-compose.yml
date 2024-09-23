@@ -21,6 +21,15 @@ services:
       - "15672:15672"
 
 
+  fastapiapp:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - rabbitmq
 
 volumes:
   pg_data:
