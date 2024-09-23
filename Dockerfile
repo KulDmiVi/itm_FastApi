@@ -12,6 +12,8 @@ ENV PYTHONUNBUFFERED 1
 COPY [ "requirements.txt", "run.sh", "./"]
 
 RUN apt-get update
+RUN apt-get -y install tesseract-ocr
+RUN apt-get -y install tesseract-ocr-rus
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt && chmod +x ./run.sh
 
