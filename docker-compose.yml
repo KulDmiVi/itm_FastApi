@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:14.0-alpine
+    env_file: db_example.env
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    env_file: rmq_example.env
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
+
+volumes:
+  pg_data:
