@@ -1,10 +1,8 @@
 from fastapi import APIRouter, UploadFile
 from app.documents.models import Documents
 from app.documents.dao import DocumentsDAO
-router = APIRouter( tags=['Докуметы'])
 
-
-
+router = APIRouter(tags=['Докуметы'])
 
 
 @router.post("/doc_upload/", summary="Загрузка документов")
@@ -16,7 +14,7 @@ async def add_document(file: UploadFile) -> dict:
         new_document = Documents()
         new_document.path = file_path
         new_document_id = await DocumentsDAO.add_document(new_document)
-        return {"200 OK": new_document_id}
+        return {"201 OK": new_document_id}
     except Exception as e:
         return {"message": e.args}
 
@@ -29,11 +27,3 @@ async def del_document(document_id: int) -> dict:
     else:
         return {"message": "Ошибка при удалении документа!"}
 
-
-#
-# @router.get("/doc_analyz/", summary="Получение документов")
-# async def get_document(document_id:int) -> str:
-#     # rez = await StudentDAO.find_one_or_none(**request_body.to_dict())
-#     # if rez is None:
-#     #     return {'message': f'Студент с указанными вами параметрами не найден!'}
-#     return "Описание"

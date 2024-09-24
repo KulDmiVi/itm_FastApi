@@ -9,6 +9,9 @@ class DocumentsText(Base):
     text = Column(Text(), nullable=False)
     id_doc = Column(Integer(), ForeignKey('documents.id'))
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
     def __str__(self):
         return (f"{self.__class__.__name__}(id={self.id},"
