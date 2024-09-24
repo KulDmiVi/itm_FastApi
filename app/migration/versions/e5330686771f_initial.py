@@ -30,7 +30,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('text', sa.Text(), nullable=False),
     sa.Column('id_doc', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['id_doc'], ['documents.id'], ),
+    sa.ForeignKeyConstraint(['id_doc'], ['documents.id'],  ondelete="CASCADE",),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
